@@ -1,1 +1,157 @@
 
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>বাংলাদেশ বিদ্যুৎ বিল ক্যালকুলেটর | LTA & LTE</title>
+
+<meta name="description" content="বাংলাদেশের আবাসিক (LTA) ও বাণিজ্যিক (LTE) বিদ্যুৎ বিল ক্যালকুলেটর। ইউনিট, লোড, ডিমান্ড চার্জ, ভ্যাটসহ দ্রুত বিল হিসাব করুন।">
+<meta name="keywords" content="electricity bill calculator bangladesh, dpdc, desco, nesco, pbs, lta, lte bill calculator">
+<meta name="author" content="Project Bangla">
+<meta name="theme-color" content="#2563eb">
+
+<meta property="og:title" content="বাংলাদেশ বিদ্যুৎ বিল ক্যালকুলেটর">
+<meta property="og:description" content="LTA ও LTE ট্যারিফ অনুযায়ী বিদ্যুৎ বিল হিসাব করুন।">
+<meta property="og:type" content="website">
+
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+body{
+margin:0;
+font-family:'Hind Siliguri',sans-serif;
+background:linear-gradient(135deg,#7c3aed,#2563eb,#06b6d4);
+padding:15px;
+}
+
+.card{
+max-width:900px;
+margin:auto;
+background:#fff;
+padding:20px;
+border-radius:18px;
+box-shadow:0 10px 30px rgba(0,0,0,.2);
+}
+
+h1{text-align:center}
+
+input,select,button{
+width:100%;
+padding:12px;
+margin-top:8px;
+border-radius:10px;
+border:1px solid #ddd;
+}
+
+button{
+cursor:pointer;
+font-weight:bold;
+color:#fff;
+border:none;
+}
+
+.calc{background:#2563eb}
+.reset{background:#dc2626}
+
+.row{
+display:flex;
+justify-content:space-between;
+padding:8px 0;
+border-bottom:1px dashed #ddd;
+}
+
+.total{font-size:20px;color:#d00;font-weight:bold}
+
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<h1>⚡ বিদ্যুৎ বিল ক্যালকুলেটর</h1>
+
+<label>ট্যারিফ নির্বাচন</label>
+<select id="type">
+<option value="LTA">আবাসিক (LTA)</option>
+<option value="LTE">বাণিজ্যিক (LTE)</option>
+</select>
+
+<label>ইউনিট প্রদান করুন</label>
+<input type="number" id="unit">
+
+<label>লোড (kW)</label>
+<input type="number" id="load" value="0">
+
+<button class="calc" onclick="calc()">হিসাব করুন</button>
+<button class="reset" onclick="resetAll()">রিসেট</button>
+
+<hr>
+
+<div class="row"><span>ইউনিট</span><span id="u">0</span></div>
+<div class="row"><span>এনার্জি চার্জ</span><span id="e">0</span></div>
+<div class="row"><span>ডিমান্ড চার্জ</span><span id="d">0</span></div>
+<div class="row"><span>ভ্যাট</span><span id="v">0</span></div>
+<div class="row total"><span>মোট</span><span id="t">0</span></div>
+
+</div>
+
+<script>
+function energy(u,type){
+if(type=="LTE") return u*15.36;
+
+if(u<=50)return u*5.32;
+else if(u<=75)return u*6.18;
+else if(u<=200)return (u-75)*8.5 + 75*6.18;
+else return u*10;
+}
+
+function calc(){
+let u=+unit.value;
+let l=+load.value;
+let type=typeSelect.value;
+
+if(!u){alert("ইউনিট দিন");return;}
+
+let e=energy(u,type);
+let d=(type=="LTE")?l*90:l*42;
+
+let total=e+d;
+let vat=total*0.05;
+
+uDisplay.innerText=u;
+eDisplay.innerText=e.toFixed(2);
+dDisplay.innerText=d.toFixed(2);
+vDisplay.innerText=vat.toFixed(2);
+tDisplay.innerText=(total+vat).toFixed(2);
+}
+
+function resetAll(){
+unit.value="";
+load.value=0;
+typeSelect.value="LTA";
+
+uDisplay.innerText=0;
+eDisplay.innerText=0;
+dDisplay.innerText=0;
+vDisplay.innerText=0;
+tDisplay.innerText=0;
+}
+</script>
+
+<script>
+const unit=document.getElementById("unit");
+const load=document.getElementById("load");
+const typeSelect=document.getElementById("type");
+
+const uDisplay=document.getElementById("u");
+const eDisplay=document.getElementById("e");
+const dDisplay=document.getElementById("d");
+const vDisplay=document.getElementById("v");
+const tDisplay=document.getElementById("t");
+</script>
+
+</body>
+</html>
