@@ -1,68 +1,161 @@
-
 <!DOCTYPE html>
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>বাংলাদেশ বিদ্যুৎ বিল ক্যালকুলেটর | LTA & LTE</title>
+<title>বিদ্যুৎ বিল ক্যালকুলেটর</title>
 
-<meta name="description" content="বাংলাদেশের আবাসিক (LTA) ও বাণিজ্যিক (LTE) বিদ্যুৎ বিল ক্যালকুলেটর। ইউনিট, লোড, ডিমান্ড চার্জ, ভ্যাটসহ দ্রুত বিল হিসাব করুন।">
-<meta name="keywords" content="electricity bill calculator bangladesh, dpdc, desco, nesco, pbs, lta, lte bill calculator">
-<meta name="author" content="Project Bangla">
-<meta name="theme-color" content="#2563eb">
-
-<meta property="og:title" content="বাংলাদেশ বিদ্যুৎ বিল ক্যালকুলেটর">
-<meta property="og:description" content="LTA ও LTE ট্যারিফ অনুযায়ী বিদ্যুৎ বিল হিসাব করুন।">
-<meta property="og:type" content="website">
-
-<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
+
+*{
+  box-sizing:border-box;
+  font-family:'Hind Siliguri',sans-serif;
+  margin:0;
+  padding:0;
+}
+
 body{
-margin:0;
-font-family:'Hind Siliguri',sans-serif;
-background:linear-gradient(135deg,#7c3aed,#2563eb,#06b6d4);
-padding:15px;
+  background:linear-gradient(135deg,#7c3aed,#2563eb,#06b6d4);
+  padding:12px;
 }
 
+/* MAIN CARD */
 .card{
-max-width:900px;
-margin:auto;
-background:#fff;
-padding:20px;
-border-radius:18px;
-box-shadow:0 10px 30px rgba(0,0,0,.2);
+  max-width:900px;
+  margin:auto;
+  background:#fff;
+  border-radius:18px;
+  padding:16px;
+  box-shadow:0 10px 30px rgba(0,0,0,.2);
 }
 
-h1{text-align:center}
+/* TITLE */
+h1{
+  text-align:center;
+  font-size:clamp(18px,4vw,28px);
+  font-weight:700;
+}
 
-input,select,button{
-width:100%;
-padding:12px;
-margin-top:8px;
-border-radius:10px;
-border:1px solid #ddd;
+/* DATE TIME */
+#dt{
+  text-align:center;
+  color:#555;
+  margin-top:6px;
+  font-size:clamp(12px,2.5vw,15px);
+}
+
+/* SCROLL NOTICE */
+.notice{
+  margin:10px 0;
+  overflow:hidden;
+  background:#f4f7ff;
+  padding:10px;
+  border-radius:10px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.15);
+}
+
+.notice p{
+  white-space:nowrap;
+  display:inline-block;
+  animation:scroll 22s linear infinite;
+  font-size:clamp(12px,2.5vw,14px);
+}
+
+@keyframes scroll{
+  0%{transform:translateX(100%);}
+  100%{transform:translateX(-100%);}
+}
+
+/* INPUT GRID */
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:10px;
+  margin-top:10px;
+}
+
+/* INPUT */
+input,select{
+  width:100%;
+  padding:12px;
+  border:1px solid #ccc;
+  border-radius:10px;
+  font-size:14px;
+}
+
+/* BUTTON ROW */
+.btn-row{
+  display:flex;
+  gap:10px;
+  margin-top:12px;
 }
 
 button{
-cursor:pointer;
-font-weight:bold;
-color:#fff;
-border:none;
+  flex:1;
+  padding:12px;
+  border:none;
+  border-radius:10px;
+  font-weight:700;
+  color:#fff;
+  background:linear-gradient(135deg,#7c3aed,#2563eb,#06b6d4);
+  cursor:pointer;
 }
 
-.calc{background:#2563eb}
-.reset{background:#dc2626}
-
+/* RESULT BOX */
 .row{
-display:flex;
-justify-content:space-between;
-padding:8px 0;
-border-bottom:1px dashed #ddd;
+  display:flex;
+  justify-content:space-between;
+  padding:8px 0;
+  border-bottom:1px dashed #ddd;
+  font-size:14px;
 }
 
-.total{font-size:20px;color:#d00;font-weight:bold}
+.total{
+  font-size:20px;
+  font-weight:bold;
+  color:#d00;
+}
+
+/* SOCIAL */
+.social{
+  text-align:center;
+  margin-top:15px;
+  padding:12px;
+  background:#f4f7ff;
+  border-radius:12px;
+}
+
+.social a{
+  font-size:35px;
+  margin:0 10px;
+  text-decoration:none;
+}
+
+.fa-youtube{color:#ff0000;}
+.fa-facebook{color:#1877f2;}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .btn-row{
+    flex-direction:row;
+  }
+}
+#resetBtn{
+  background: linear-gradient(135deg,#ef4444,#dc2626);
+}
+
+#resetBtn:hover{
+  background: linear-gradient(135deg,#dc2626,#b91c1c);
+}
+
 
 </style>
 </head>
@@ -71,87 +164,196 @@ border-bottom:1px dashed #ddd;
 
 <div class="card">
 
-<h1>⚡ বিদ্যুৎ বিল ক্যালকুলেটর</h1>
+<h1>বিদ্যুৎ বিল ক্যালকুলেটর</h1>
 
-<label>ট্যারিফ নির্বাচন</label>
-<select id="type">
-<option value="LTA">আবাসিক (LTA)</option>
-<option value="LTE">বাণিজ্যিক (LTE)</option>
+<div id="dt"></div>
+
+<!-- SCROLL NOTICE -->
+<div class="notice">
+<p>এটি সর্বশেষ বিদ্যুৎ রেট অনুযায়ী তৈরি করা হয়েছে। পরবর্তী বিদ্যুৎ রেট পরিবর্তন হলে ক্যালকুলেটরটিও পরিবর্তন করা হবে ইনশাআল্লাহ।</p>
+</div>
+
+<!-- INPUTS -->
+<div class="grid">
+
+<div>
+<label>ট্যারিফ নির্বাচন করুন</label>
+<select id="tariff">
+<option value="res">আবাসিক</option>
+<option value="com">বাণিজ্যিক</option>
 </select>
+</div>
 
+<div>
 <label>ইউনিট প্রদান করুন</label>
-<input type="number" id="unit">
+<input type="number" id="unit" placeholder="ইউনিট লিখুন">
+</div>
 
-<label>লোড (kW)</label>
+<div>
+<label>অনুমোদিত লোড (kW)</label>
 <input type="number" id="load" value="0">
+</div>
 
-<button class="calc" onclick="calc()">হিসাব করুন</button>
-<button class="reset" onclick="resetAll()">রিসেট</button>
+</div>
 
-<hr>
+<!-- BUTTONS -->
+<div class="btn-row">
+<button onclick="calc()">বিল হিসাব করুন</button>
+<button onclick="resetAll()" id="resetBtn">রিসেট</button>
+</div>
 
-<div class="row"><span>ইউনিট</span><span id="u">0</span></div>
-<div class="row"><span>এনার্জি চার্জ</span><span id="e">0</span></div>
-<div class="row"><span>ডিমান্ড চার্জ</span><span id="d">0</span></div>
-<div class="row"><span>ভ্যাট</span><span id="v">0</span></div>
-<div class="row total"><span>মোট</span><span id="t">0</span></div>
+<!-- RESULT -->
+<div style="margin-top:15px">
+
+<div class="row"><span>ব্যবহৃত ইউনিট</span><span id="unitOut">0</span></div>
+<div class="row"><span>ইউনিট মূল্য</span><span id="energy">0</span></div>
+<div class="row"><span>ডিমান্ড চার্জ</span><span id="demand">0</span></div>
+<div class="row"><span>প্রিন্সিপাল বিল</span><span id="principal">0</span></div>
+<div class="row"><span>ভ্যাট (5%)</span><span id="vat">0</span></div>
+<div class="row total"><span>মোট বিল</span><span id="total">0</span></div>
+
+</div>
+
+<!-- SOCIAL -->
+<div class="social">
+<p>নতুন নতুন আপডেট পেতে আমাদের YouTube Channel এবং Facebook Page এর সাথে যুক্ত থাকুন।</p>
+
+<a href="https://youtube.com/@projectbangla" target="_blank">
+<i class="fa-brands fa-youtube"></i>
+</a>
+
+<a href="https://www.facebook.com/hossainahmed4/" target="_blank">
+<i class="fa-brands fa-facebook"></i>
+</a>
 
 </div>
 
 <script>
-function energy(u,type){
-if(type=="LTE") return u*15.36;
+// ================= LIVE DATE TIME =================
+function updateDT(){
+  let n = new Date();
+  document.getElementById("dt").innerHTML =
+    n.toLocaleDateString("bn-BD") + " | " +
+    n.toLocaleTimeString("bn-BD");
+}
+setInterval(updateDT,1000);
+updateDT();
 
-if(u<=50)return u*5.32;
-else if(u<=75)return u*6.18;
-else if(u<=200)return (u-75)*8.5 + 75*6.18;
-else return u*10;
+
+// ================= RESIDENTIAL SLAB =================
+function residential(u){
+  if(u<=50) return u*4.63;
+  else if(u<=75) return u*5.26;
+  else if(u<=200) return ((u-75)*8.5)+(75*5.26);
+  else if(u<=300) return ((u-200)*9.1)+(125*8.5)+(75*5.26);
+  else if(u<=400) return ((u-300)*9.62)+(100*9.1)+(125*8.5)+(75*5.26);
+  else if(u<=600) return ((u-400)*15.01)+(100*9.62)+(100*9.1)+(125*8.5)+(75*5.26);
+  else return ((u-600)*17.35)+(200*15.01)+(100*9.62)+(100*9.1)+(125*8.5)+(75*5.26);
 }
 
+
+// ================= COMMERCIAL (SIMPLE FIXED RATE) =================
+function commercial(u){
+  // সাধারণ fixed average rate ধরে
+  return u * 15.36;
+}
+
+
+// ================= CALCULATION =================
 function calc(){
-let u=+unit.value;
-let l=+load.value;
-let type=typeSelect.value;
 
-if(!u){alert("ইউনিট দিন");return;}
+  let u = parseFloat(document.getElementById("unit").value) || 0;
+  let load = parseFloat(document.getElementById("load").value) || 0;
+  let type = document.getElementById("tariff").value;
 
-let e=energy(u,type);
-let d=(type=="LTE")?l*90:l*42;
+  if(u <= 0){
+    alert("ইউনিট প্রদান করুন");
+    return;
+  }
 
-let total=e+d;
-let vat=total*0.05;
+  let energy = 0;
 
-uDisplay.innerText=u;
-eDisplay.innerText=e.toFixed(2);
-dDisplay.innerText=d.toFixed(2);
-vDisplay.innerText=vat.toFixed(2);
-tDisplay.innerText=(total+vat).toFixed(2);
+  if(type === "res"){
+    energy = residential(u);
+  }else{
+    energy = commercial(u);
+  }
+
+  // Demand charge
+  let demandRate = (type === "res") ? 42 : 90;
+  let demand = load * demandRate;
+
+  let principal = energy + demand;
+
+  let vat = principal * 0.05;
+
+  let total = principal + vat;
+
+  // OUTPUT
+  document.getElementById("unitOut").innerText = u;
+ document.getElementById("energy").innerText = energy.toFixed(2) + " ৳";
+document.getElementById("demand").innerText = demand.toFixed(2) + " ৳";
+document.getElementById("principal").innerText = principal.toFixed(2) + " ৳";
+document.getElementById("vat").innerText = vat.toFixed(2) + " ৳";
+document.getElementById("total").innerText = total.toFixed(2) + " ৳";
 }
 
-function resetAll(){
-unit.value="";
-load.value=0;
-typeSelect.value="LTA";
 
-uDisplay.innerText=0;
-eDisplay.innerText=0;
-dDisplay.innerText=0;
-vDisplay.innerText=0;
-tDisplay.innerText=0;
+// ================= RESET =================
+function resetAll(){
+  document.getElementById("unit").value = "";
+  document.getElementById("load").value = 0;
+  document.getElementById("tariff").value = "res";
+
+  document.getElementById("unitOut").innerText = "0";
+  document.getElementById("energy").innerText = "0";
+  document.getElementById("demand").innerText = "0";
+  document.getElementById("principal").innerText = "0";
+  document.getElementById("vat").innerText = "0";
+  document.getElementById("total").innerText = "0";
 }
 </script>
 
-<script>
-const unit=document.getElementById("unit");
-const load=document.getElementById("load");
-const typeSelect=document.getElementById("type");
+</div>
 
-const uDisplay=document.getElementById("u");
-const eDisplay=document.getElementById("e");
-const dDisplay=document.getElementById("d");
-const vDisplay=document.getElementById("v");
-const tDisplay=document.getElementById("t");
+</body>
+<!-- ================= FINAL RESPONSIVE POLISH ================= -->
+<style>
+/* Prevent text breaking weirdly on mobile title */
+h1{
+  word-break:keep-all;
+  line-height:1.2;
+}
+
+/* Improve button mobile behavior */
+@media(max-width:480px){
+  .btn-row{
+    flex-direction:row;
+  }
+  button{
+    font-size:14px;
+  }
+}
+
+/* Prevent overflow anywhere */
+.card{
+  overflow:hidden;
+}
+</style>
+
+<script>
+// Extra safety: prevent negative or invalid inputs
+document.getElementById("unit").addEventListener("input", function(){
+  if(this.value < 0) this.value = 0;
+});
+
+document.getElementById("load").addEventListener("input", function(){
+  if(this.value < 0) this.value = 0;
+});
 </script>
 
 </body>
+</html>
+
+
 </html>
