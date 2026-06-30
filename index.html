@@ -1060,9 +1060,9 @@ breakdown+=`
 
 const principal=energy+demand;
 
-const vat=principal*0.05;
+const vat=(type==="LTB") ? 0: principal*0.05;
 
-const total=principal+vat;
+const total=Math.round(principal+vat);
 
 document.getElementById("resultCard").style.display="block";
 
