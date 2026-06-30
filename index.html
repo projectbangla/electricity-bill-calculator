@@ -1,187 +1,351 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>বিদ্যুৎ বিল ক্যালকুলেটর</title>
+<meta name="description" content="বাংলাদেশের সকল বিদ্যুৎ ট্যারিফের বিদ্যুৎ বিল হিসাব করুন। আবাসিক, বাণিজ্যিক, কৃষি, শিল্প, LTE ট্যারিফ, Peak ও Off-Peak বিল ক্যালকুলেটর।">
+
+<meta name="keywords" content="বিদ্যুৎ বিল ক্যালকুলেটর, বাংলাদেশ বিদ্যুৎ বিল, DPDC, DESCO, NESCO, PDB, WZPDCL, PBS, LTE Tariff Calculator">
+
+<meta name="robots" content="index,follow">
+
+<meta property="og:title" content="বাংলাদেশ বিদ্যুৎ বিল ক্যালকুলেটর">
+
+<meta property="og:description" content="বাংলাদেশের সকল বিদ্যুৎ ট্যারিফের বিল সহজেই হিসাব করুন।">
+
+<meta property="og:type" content="website">
 
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
 
 *{
-  box-sizing:border-box;
-  font-family:'Hind Siliguri',sans-serif;
-  margin:0;
-  padding:0;
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Hind Siliguri',sans-serif;
 }
 
 body{
-  background:linear-gradient(135deg,#7c3aed,#2563eb,#06b6d4);
-  padding:12px;
+background:linear-gradient(135deg,#7c3aed,#2563eb,#06b6d4);
+padding:12px;
 }
 
-/* MAIN CARD */
 .card{
-  max-width:900px;
-  margin:auto;
-  background:#fff;
-  border-radius:18px;
-  padding:16px;
-  box-shadow:0 10px 30px rgba(0,0,0,.2);
+max-width:900px;
+margin:auto;
+background:#fff;
+border-radius:18px;
+padding:18px;
+box-shadow:0 10px 30px rgba(0,0,0,.18);
+overflow:hidden;
 }
 
-/* TITLE */
 h1{
-  text-align:center;
-  font-size:clamp(18px,4vw,28px);
-  font-weight:700;
+text-align:center;
+font-size:clamp(20px,4vw,30px);
+line-height:1.25;
 }
 
-/* DATE TIME */
 #dt{
-  text-align:center;
-  color:#555;
-  margin-top:6px;
-  font-size:clamp(12px,2.5vw,15px);
+text-align:center;
+margin-top:6px;
+font-size:clamp(12px,2.5vw,15px);
+color:#555;
 }
 
-/* SCROLL NOTICE */
 .notice{
-  margin:10px 0;
-  overflow:hidden;
-  background:#f4f7ff;
-  padding:10px;
-  border-radius:10px;
-  box-shadow:0 2px 6px rgba(0,0,0,0.15);
+margin-top:12px;
+background:#f4f7ff;
+padding:10px;
+border-radius:10px;
+overflow:hidden;
+box-shadow:0 2px 8px rgba(0,0,0,.15);
 }
 
 .notice p{
-  white-space:nowrap;
-  display:inline-block;
-  animation:scroll 22s linear infinite;
-  font-size:clamp(12px,2.5vw,14px);
+white-space:nowrap;
+display:inline-block;
+animation:scroll 22s linear infinite;
+font-size:13px;
 }
 
 @keyframes scroll{
-  0%{transform:translateX(100%);}
-  100%{transform:translateX(-100%);}
+0%{transform:translateX(100%);}
+100%{transform:translateX(-100%);}
+}
+.summary{
+margin-top:10px;
+padding-top:10px;
 }
 
-/* INPUT GRID */
 .grid{
-  display:grid;
-  grid-template-columns:1fr 1fr 1fr;
-  gap:10px;
-  margin-top:10px;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:10px;
+margin-top:15px;
 }
 
-/* INPUT */
+label{
+font-size:14px;
+font-weight:600;
+display:block;
+margin-bottom:6px;
+}
+
 input,select{
-  width:100%;
-  padding:12px;
-  border:1px solid #ccc;
-  border-radius:10px;
-  font-size:14px;
+width:100%;
+padding:12px;
+border:1px solid #ccc;
+border-radius:10px;
+font-size:14px;
+outline:none;
+transition:.25s;
 }
 
-/* BUTTON ROW */
+input:focus,
+select:focus{
+border-color:#2563eb;
+box-shadow:0 0 6px rgba(37,99,235,.25);
+}
+
+.switchBox{
+display:none;
+margin-top:15px;
+background:#f4f7ff;
+padding:12px;
+border-radius:12px;
+box-shadow:0 2px 8px rgba(0,0,0,.10);
+}
+
+.switchRow{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:10px;
+}
+
+.switch{
+position:relative;
+width:56px;
+height:30px;
+}
+
+.switch input{
+display:none;
+}
+
+.slider{
+position:absolute;
+cursor:pointer;
+top:0;
+left:0;
+right:0;
+bottom:0;
+background:#cfcfcf;
+border-radius:40px;
+transition:.3s;
+}
+
+.slider:before{
+position:absolute;
+content:"";
+height:24px;
+width:24px;
+left:3px;
+bottom:3px;
+background:#fff;
+border-radius:50%;
+transition:.3s;
+}
+
+.switch input:checked + .slider{
+background:#2563eb;
+}
+
+.switch input:checked + .slider:before{
+transform:translateX(26px);
+}
+
+#peakFields{
+display:none;
+margin-top:15px;
+}
+
 .btn-row{
-  display:flex;
-  gap:10px;
-  margin-top:12px;
+display:flex;
+gap:10px;
+margin-top:15px;
+justify-content:center;
+flex-wrap:wrap;
+}
+
+.summaryDivider{
+border:none;
+border-top:1px solid #e5e7eb;
+margin:6px 0;
 }
 
 button{
-  flex:1;
-  padding:12px;
-  border:none;
-  border-radius:10px;
-  font-weight:700;
-  color:#fff;
-  background:linear-gradient(135deg,#7c3aed,#2563eb,#06b6d4);
-  cursor:pointer;
+padding:10px 18px;
+border:none;
+border-radius:10px;
+color:#fff;
+font-weight:600;
+cursor:pointer;
+min-width:130px;
+font-size:14px;
+background:linear-gradient(135deg,#7c3aed,#2563eb,#06b6d4);
 }
 
-/* RESULT BOX */
-.row{
-  display:flex;
-  justify-content:space-between;
-  padding:8px 0;
-  border-bottom:1px dashed #ddd;
-  font-size:14px;
+
+
+#resetBtn{
+background:linear-gradient(135deg,#ef4444,#dc2626);
+}
+
+.resultCard{
+display:none;
+margin-top:12px;
+background:#f4f7ff;
+padding:12px;
+border-radius:12px;
+box-shadow:0 2px 8px rgba(0,0,0,.15);
+}
+
+.breakdown{
+margin-bottom:18px;
+}
+
+.breakdown h3{
+margin-bottom:8px;
+padding-bottom:8px;
+border-bottom:1px solid #000;
+font-size:18px;
+text-align:center;
+
+}
+
+.detailRow{
+display:flex;
+justify-content:space-between;
+padding:8px 0;
+border-bottom:none;
+font-size:14px;
+}
+
+.summary .detailRow{
+font-size:15px;
 }
 
 .total{
-  font-size:20px;
-  font-weight:bold;
-  color:#d00;
+font-size:30px;
+font-weight:700;
+color:#d60000;
 }
 
-/* SOCIAL */
+@media(max-width:768px){
+.grid{
+grid-template-columns:1fr;
+}
+}
+
 .social{
-  text-align:center;
-  margin-top:15px;
-  padding:12px;
-  background:#f4f7ff;
-  border-radius:12px;
+margin-top:20px;
+padding:16px;
+text-align:center;
+background:#f4f7ff;
+border-radius:12px;
+box-shadow:0 2px 8px rgba(0,0,0,.12);
+}
+
+.social p{
+font-size:15px;
+margin-bottom:12px;
 }
 
 .social a{
-  font-size:35px;
-  margin:0 10px;
-  text-decoration:none;
-  display:inline-block;
-  transition:all .3s ease;
-  animation:softPulse 3s ease-in-out infinite;
-  transition: all .25s ease;
+display:inline-block;
+font-size:38px;
+margin:0 12px;
+text-decoration:none;
+animation:softPulse 3s ease-in-out infinite;
+transition:.25s;
 }
 
-.fa-youtube{color:#ff0000;}
-.fa-facebook{color:#1877f2;}
-
-/* RESPONSIVE */
-@media(max-width:768px){
-  .grid{
-    grid-template-columns:1fr;
-  }
-
-  .btn-row{
-    flex-direction:row;
-  }
-}
-#resetBtn{
-  background: linear-gradient(135deg,#ef4444,#dc2626);
-}
-
-#resetBtn:hover{
-  background: linear-gradient(135deg,#dc2626,#b91c1c);
-}
-  @keyframes softPulse{
-  0%,100%{
-    transform:scale(1);
-    opacity:.85;
-    filter:drop-shadow(0 0 0 rgba(0,0,0,0));
-  }
-
-  50%{
-    transform:scale(1.04);
-    opacity:1;
-    filter:drop-shadow(0 0 6px rgba(0,0,0,.18));
-  }
+.fa-youtube{
+color:#ff0000;
 }
 
 .fa-facebook{
-  animation-delay:1.5s;
+color:#1877f2;
+animation-delay:1.5s;
 }
 
-  .social a:hover{
-  transform: scale(1.05);
-  filter: drop-shadow(0 0 8px rgba(0,0,0,.25));
+.social a:hover{
+transform:scale(1.05);
+filter:drop-shadow(0 0 8px rgba(0,0,0,.25));
 }
 
+@keyframes softPulse{
+0%,100%{
+transform:scale(1);
+opacity:.85;
+filter:drop-shadow(0 0 0 rgba(0,0,0,0));
+}
+50%{
+transform:scale(1.04);
+opacity:1;
+filter:drop-shadow(0 0 8px rgba(0,0,0,.18));
+}
+}
+
+#printBox{
+display:none;
+margin-top:15px;
+}
+
+#printBtn{
+width:auto;
+padding:10px 24px;
+background:#d1d5db;
+color:#374151;
+display:block;
+margin:auto;
+}
+
+@media print{
+
+body{
+background:#fff;
+padding:0;
+}
+
+.card{
+box-shadow:none;
+max-width:100%;
+border-radius:0;
+}
+
+.notice,
+.btn-row,
+.social,
+#printBtn,
+.switchBox{
+display:none!important;
+}
+
+.resultCard{
+display:block!important;
+background:#fff;
+box-shadow:none;
+}
+
+}
 
 </style>
 </head>
@@ -194,192 +358,769 @@ button{
 
 <div id="dt"></div>
 
-<!-- SCROLL NOTICE -->
 <div class="notice">
-<p>এটি সর্বশেষ বিদ্যুৎ রেট অনুযায়ী তৈরি করা হয়েছে। পরবর্তী বিদ্যুৎ রেট পরিবর্তন হলে ক্যালকুলেটরটিও পরিবর্তন করা হবে ইনশাআল্লাহ।</p>
+<p>
+এটি সর্বশেষ বিদ্যুৎ রেট অনুযায়ী তৈরি করা হয়েছে। পরবর্তী বিদ্যুৎ রেট পরিবর্তন হলে ক্যালকুলেটরটিও পরিবর্তন করা হবে ইনশাআল্লাহ।
+</p>
 </div>
 
-<!-- INPUTS -->
 <div class="grid">
 
 <div>
+
 <label>ট্যারিফ নির্বাচন করুন</label>
+
 <select id="tariff">
-<option value="res">আবাসিক</option>
-<option value="com">বাণিজ্যিক</option>
+
+<option value="LTA">LT-A</option>
+
+<option value="LTB">LT-B</option>
+
+<option value="LTC1">LT-C1</option>
+
+<option value="LTC2">LT-C2</option>
+
+<option value="LTD1">LT-D1</option>
+
+<option value="LTD2">LT-D2</option>
+
+<option value="LTD3">LT-D3</option>
+
+<option value="LTE">LT-E</option>
+
+<option value="LTT">LT-T</option>
+
 </select>
+
 </div>
 
-<div>
+<div id="unitBox">
+
 <label>ইউনিট প্রদান করুন</label>
+
 <input type="number" id="unit" placeholder="ইউনিট লিখুন">
+
+</div>
+
+<div id="loadBox">
+
+<label>অনুমোদিত লোড (kW)</label>
+
+<input type="number" id="load" placeholder="অনুমোদিত লোড লিখুন">
+
+</div>
+
+</div>
+
+<div class="switchBox" id="switchBox">
+
+<div class="switchRow">
+
+<span>Peak / Off-Peak Calculation</span>
+
+<label class="switch">
+
+<input type="checkbox" id="peakSwitch">
+
+<span class="slider"></span>
+
+</label>
+
+</div>
+
+</div>
+
+<div id="peakFields">
+
+<div class="grid">
+
+<div>
+
+<label>Peak Unit</label>
+
+<input type="number" id="peakUnit">
+
 </div>
 
 <div>
+
+<label>Off-Peak Unit</label>
+
+<input type="number" id="offPeakUnit">
+
+</div>
+
+<div id="superPeakDiv" style="display:none;">
+
+<label>Super Off-Peak</label>
+
+<input type="number" id="superPeakUnit">
+
+</div>
+
+<div id="loadBoxPeak" style="display:none;">
+
 <label>অনুমোদিত লোড (kW)</label>
-<input type="number" id="load" value="0">
-</div>
+
+<input type="number" id="loadPeak" placeholder="অনুমোদিত লোড লিখুন">
 
 </div>
 
-<!-- BUTTONS -->
+</div>
+
+</div>
 <div class="btn-row">
-<button onclick="calc()">বিল হিসাব করুন</button>
-<button onclick="resetAll()" id="resetBtn">রিসেট</button>
+
+<button onclick="calc()">
+
+<i class="fa-solid fa-calculator"></i>
+
+বিল হিসাব করুন
+
+</button>
+
+<button
+id="resetBtn"
+onclick="resetAll()">
+
+<i class="fa-solid fa-rotate-left"></i>
+
+রিসেট
+
+</button>
+
 </div>
 
-<!-- RESULT -->
-<div style="margin-top:15px">
+<div class="resultCard" id="resultCard">
 
-<div class="row"><span>ব্যবহৃত ইউনিট</span><span id="unitOut">0</span></div>
-<div class="row"><span>ইউনিট মূল্য</span><span id="energy">0</span></div>
-<div class="row"><span>ডিমান্ড চার্জ</span><span id="demand">0</span></div>
-<div class="row"><span>প্রিন্সিপাল বিল</span><span id="principal">0</span></div>
-<div class="row"><span>ভ্যাট (5%)</span><span id="vat">0</span></div>
-<div class="row total"><span>মোট বিল</span><span id="total">0</span></div>
+    <div class="breakdown" id="breakdown"></div>
+
+    <hr class="summaryDivider">
+
+    <div class="summary">
+
+        <div class="detailRow">
+            <span>ইউনিট মূল্য</span>
+            <span id="energy">0.00 ৳</span>
+        </div>
+
+        <div class="detailRow">
+            <span>ডিমান্ড চার্জ</span>
+            <span id="demand">0.00 ৳</span>
+        </div>
+
+        <div class="detailRow">
+            <span>ভ্যাট (5%)</span>
+            <span id="vat">0.00 ৳</span>
+        </div>
+
+        <hr class="summaryDivider">
+
+        <div class="detailRow total">
+            <span>মোট বিল</span>
+            <span id="total">0.00 ৳</span>
+        </div>
+
+    </div>
 
 </div>
 
-<!-- SOCIAL -->
+<div id="printBox">
+
+<button
+id="printBtn"
+onclick="window.print()">
+
+<i class="fa-solid fa-print"></i>
+
+প্রিন্ট করুন
+
+</button>
+
+</div>
+
 <div class="social">
-<p>নতুন নতুন আপডেট পেতে আমার YouTube Channel এবং Facebook Page এর সাথে যুক্ত থাকুন।</p>
 
-<a href="https://youtube.com/@projectbangla" target="_blank">
+<p>
+
+নতুন নতুন আপডেট পেতে আমার
+YouTube Channel
+এবং
+Facebook Page
+এর সাথে যুক্ত থাকুন।
+
+</p>
+
+<a
+href="https://youtube.com/@projectbangla"
+target="_blank">
+
 <i class="fa-brands fa-youtube"></i>
+
 </a>
 
-<a href="https://www.facebook.com/hossainahmed4/" target="_blank">
+<a
+href="https://facebook.com/hossainahmed4"
+target="_blank">
+
 <i class="fa-brands fa-facebook"></i>
+
 </a>
 
 </div>
 
 <script>
+
 // ================= LIVE DATE TIME =================
+
 function updateDT(){
-  let n = new Date();
-  document.getElementById("dt").innerHTML =
-    n.toLocaleDateString("bn-BD") + " | " +
-    n.toLocaleTimeString("bn-BD");
+
+const now = new Date();
+
+document.getElementById("dt").innerHTML =
+now.toLocaleDateString("bn-BD") +
+" | " +
+now.toLocaleTimeString("bn-BD");
+
 }
+
 setInterval(updateDT,1000);
+
 updateDT();
 
 
+// ================= SHOW PEAK SWITCH =================
+
+const tariff=document.getElementById("tariff");
+
+const switchBox=document.getElementById("switchBox");
+
+const peakSwitch=document.getElementById("peakSwitch");
+
+const peakFields=document.getElementById("peakFields");
+
+const superPeakDiv=document.getElementById("superPeakDiv");
+
+const unitBox=document.getElementById("unitBox");
+
+const loadBox=document.getElementById("loadBox");
+
+const loadBoxPeak=document.getElementById("loadBoxPeak");
+
+const loadInput=document.getElementById("load");
+
+const loadPeakInput=document.getElementById("loadPeak");
+
+
+tariff.onchange=function(){
+
+const t=this.value;
+
+peakSwitch.checked=false;
+
+peakFields.style.display="none";
+
+unitBox.style.display="block";
+
+loadBox.style.display="block";
+
+loadBoxPeak.style.display="none";
+
+superPeakDiv.style.display="none";
+
+if(t=="LTC1" || t=="LTD3" || t=="LTE"){
+
+switchBox.style.display="block";
+
+}else{
+
+switchBox.style.display="none";
+
+}
+
+};
+
+
+peakSwitch.onchange=function(){
+
+if(!this.checked){
+
+peakFields.style.display="none";
+
+unitBox.style.display="block";
+
+loadBox.style.display="block";
+
+loadBoxPeak.style.display="none";
+
+superPeakDiv.style.display="none";
+
+loadInput.value=loadPeakInput.value;
+
+return;
+
+}
+
+peakFields.style.display="block";
+
+unitBox.style.display="none";
+
+loadBox.style.display="none";
+
+loadBoxPeak.style.display="block";
+
+loadPeakInput.value=loadInput.value;
+
+if(tariff.value=="LTD3"){
+
+superPeakDiv.style.display="block";
+
+}else{
+
+superPeakDiv.style.display="none";
+
+}
+
+};
+
+
 // ================= RESIDENTIAL SLAB =================
-function residential(u){
-  if(u<=50) return u*4.63;
-  else if(u<=75) return u*5.26;
-  else if(u<=200) return ((u-75)*8.5)+(75*5.26);
-  else if(u<=300) return ((u-200)*9.1)+(125*8.5)+(75*5.26);
-  else if(u<=400) return ((u-300)*9.62)+(100*9.1)+(125*8.5)+(75*5.26);
-  else if(u<=600) return ((u-400)*15.01)+(100*9.62)+(100*9.1)+(125*8.5)+(75*5.26);
-  else return ((u-600)*17.35)+(200*15.01)+(100*9.62)+(100*9.1)+(125*8.5)+(75*5.26);
+
+function residential(unit){
+
+let total=0;
+let details="";
+
+if(unit<=50){
+
+    total=unit*4.63;
+
+    details+=`
+    <div class="detailRow">
+        <span>Step 1 : 0-50 (${unit} × 4.63)</span>
+        <span>${total.toFixed(2)} ৳</span>
+    </div>`;
 }
 
+else if(unit<=75){
 
-// ================= COMMERCIAL (SIMPLE FIXED RATE) =================
-function commercial(u){
-  // সাধারণ fixed average rate ধরে
-  return u * 15.36;
+    total=unit*5.26;
+
+    details+=`
+    <div class="detailRow">
+        <span>Step 1 : 0-75 (${unit} × 5.26)</span>
+        <span>${total.toFixed(2)} ৳</span>
+    </div>`;
 }
 
+else if(unit<=200){
+
+    const s1=75*5.26;
+    const s2=(unit-75)*8.50;
+
+    total=s1+s2;
+
+    details+=`
+    <div class="detailRow">
+        <span>Step 1 : 0-75 (75 × 5.26)</span>
+        <span>${s1.toFixed(2)} ৳</span>
+    </div>
+
+    <div class="detailRow">
+        <span>Step 2 : 76-200 (${unit-75} × 8.50)</span>
+        <span>${s2.toFixed(2)} ৳</span>
+    </div>`;
+}
+
+else if(unit<=300){
+
+    const s1=75*5.26;
+    const s2=125*8.50;
+    const s3=(unit-200)*9.10;
+
+    total=s1+s2+s3;
+
+    details+=`
+    <div class="detailRow">
+        <span>Step 1 : 0-75 (75 × 5.26)</span>
+        <span>${s1.toFixed(2)} ৳</span>
+    </div>
+
+    <div class="detailRow">
+        <span>Step 2 : 76-200 (125 × 8.50)</span>
+        <span>${s2.toFixed(2)} ৳</span>
+    </div>
+
+    <div class="detailRow">
+        <span>Step 3 : 201-300 (${unit-200} × 9.10)</span>
+        <span>${s3.toFixed(2)} ৳</span>
+    </div>`;
+}
+
+else if(unit<=400){
+
+    const s1=75*5.26;
+    const s2=125*8.50;
+    const s3=100*9.10;
+    const s4=(unit-300)*9.62;
+
+    total=s1+s2+s3+s4;
+
+    details+=`
+    <div class="detailRow">
+        <span>Step 1 : 0-75 (75 × 5.26)</span>
+        <span>${s1.toFixed(2)} ৳</span>
+    </div>
+
+    <div class="detailRow">
+        <span>Step 2 : 76-200 (125 × 8.50)</span>
+        <span>${s2.toFixed(2)} ৳</span>
+    </div>
+
+    <div class="detailRow">
+        <span>Step 3 : 201-300 (100 × 9.10)</span>
+        <span>${s3.toFixed(2)} ৳</span>
+    </div>
+
+    <div class="detailRow">
+        <span>Step 4 : 301-400 (${unit-300} × 9.62)</span>
+        <span>${s4.toFixed(2)} ৳</span>
+    </div>`;
+}
+
+else if(unit<=600){
+
+    const s1=75*5.26;
+    const s2=125*8.50;
+    const s3=100*9.10;
+    const s4=100*9.62;
+    const s5=(unit-400)*15.01;
+
+    total=s1+s2+s3+s4+s5;
+
+    details+=`
+    <div class="detailRow">
+        <span>Step 1 : 0-75 (75 × 5.26)</span>
+        <span>${s1.toFixed(2)} ৳</span>
+    </div>
+
+    <div class="detailRow">
+        <span>Step 2 : 76-200 (125 × 8.50)</span>
+        <span>${s2.toFixed(2)} ৳</span>
+    </div>
+
+    <div class="detailRow">
+        <span>Step 3 : 201-300 (100 × 9.10)</span>
+        <span>${s3.toFixed(2)} ৳</span>
+    </div>
+
+    <div class="detailRow">
+        <span>Step 4 : 301-400 (100 × 9.62)</span>
+        <span>${s4.toFixed(2)} ৳</span>
+    </div>
+
+    <div class="detailRow">
+        <span>Step 5 : 401-600 (${unit-400} × 15.01)</span>
+        <span>${s5.toFixed(2)} ৳</span>
+    </div>`;
+}
+
+else{
+
+    const s1=75*5.26;
+    const s2=125*8.50;
+    const s3=100*9.10;
+    const s4=100*9.62;
+    const s5=200*15.01;
+    const s6=(unit-600)*17.35;
+
+    total=s1+s2+s3+s4+s5+s6;
+
+    details+=`
+    <div class="detailRow">
+        <span>Step 1 : 0-75 (75 × 5.26)</span>
+        <span>${s1.toFixed(2)} ৳</span>
+    </div>
+
+    <div class="detailRow">
+        <span>Step 2 : 76-200 (125 × 8.50)</span>
+        <span>${s2.toFixed(2)} ৳</span>
+    </div>
+
+    <div class="detailRow">
+        <span>Step 3 : 201-300 (100 × 9.10)</span>
+        <span>${s3.toFixed(2)} ৳</span>
+    </div>
+
+    <div class="detailRow">
+        <span>Step 4 : 301-400 (100 × 9.62)</span>
+        <span>${s4.toFixed(2)} ৳</span>
+    </div>
+
+    <div class="detailRow">
+        <span>Step 5 : 401-600 (200 × 15.01)</span>
+        <span>${s5.toFixed(2)} ৳</span>
+    </div>
+
+    <div class="detailRow">
+        <span>Step 6 : 601+ (${unit-600} × 17.35)</span>
+        <span>${s6.toFixed(2)} ৳</span>
+    </div>`;
+}
+
+return{
+    bill:total,
+    details:details
+};
+
+}
+
+// ================= TARIFF LIST =================
+
+const tariffInfo={
+
+LTB:{
+flat:6.04,
+demand:42
+},
+
+LTC1:{
+flat:12.73,
+peak:15.27,
+offPeak:11.45,
+demand:48
+},
+
+LTC2:{
+flat:18.09,
+demand:120
+},
+
+LTD1:{
+flat:9.05,
+demand:60
+},
+
+LTD2:{
+flat:11.46,
+demand:90
+},
+
+LTD3:{
+flat:11.36,
+peak:14.20,
+offPeak:10.22,
+superOffPeak:9.09,
+demand:90
+},
+
+LTE:{
+flat:15.36,
+peak:18.43,
+offPeak:13.82,
+demand:90
+},
+
+LTT:{
+flat:23.81,
+demand:120
+}
+
+};
 
 // ================= CALCULATION =================
+
 function calc(){
 
-  let u = parseFloat(document.getElementById("unit").value) || 0;
-  let load = parseFloat(document.getElementById("load").value) || 0;
-  let type = document.getElementById("tariff").value;
+const type=document.getElementById("tariff").value;
 
-  if(u <= 0){
-    alert("ইউনিট প্রদান করুন");
-    return;
-  }
+const load=peakSwitch.checked
+?(parseFloat(document.getElementById("loadPeak").value)||0)
+:(parseFloat(document.getElementById("load").value)||0);
 
-  let energy = 0;
+let energy=0;
 
-  if(type === "res"){
-    energy = residential(u);
-  }else{
-    energy = commercial(u);
-  }
+let breakdown="";
 
-  // Demand charge
-  let demandRate = (type === "res") ? 42 : 90;
-  let demand = load * demandRate;
+let totalUnit=0;
 
-  let principal = energy + demand;
 
-  let vat = principal * 0.05;
+// LT-A Residential
 
-  let total = principal + vat;
+if(type==="LTA"){
 
-  // OUTPUT
-  document.getElementById("unitOut").innerText = u;
- document.getElementById("energy").innerText = energy.toFixed(2) + " ৳";
-document.getElementById("demand").innerText = demand.toFixed(2) + " ৳";
-document.getElementById("principal").innerText = principal.toFixed(2) + " ৳";
-document.getElementById("vat").innerText = vat.toFixed(2) + " ৳";
-document.getElementById("total").innerText = total.toFixed(2) + " ৳";
+totalUnit=parseFloat(document.getElementById("unit").value)||0;
+
+if(totalUnit<=0){
+
+alert("ইউনিট প্রদান করুন");
+
+return;
+
 }
 
+const r=residential(totalUnit);
 
-// ================= RESET =================
-function resetAll(){
-  document.getElementById("unit").value = "";
-  document.getElementById("load").value = 0;
-  document.getElementById("tariff").value = "res";
+energy=r.bill;
 
-  document.getElementById("unitOut").innerText = "0";
-  document.getElementById("energy").innerText = "0";
-  document.getElementById("demand").innerText = "0";
-  document.getElementById("principal").innerText = "0";
-  document.getElementById("vat").innerText = "0";
-  document.getElementById("total").innerText = "0";
+breakdown=r.details;
+
+}else{
+
+// Flat Tariff
+
+if(!peakSwitch.checked){
+
+totalUnit=parseFloat(document.getElementById("unit").value)||0;
+
+if(totalUnit<=0){
+
+alert("ইউনিট প্রদান করুন");
+
+return;
+
 }
-</script>
 
+energy=totalUnit*tariffInfo[type].flat;
+
+breakdown=`<div class="detailRow">
+<span>Flat Rate(${totalUnit} × ${tariffInfo[type].flat})</span>
+<span>${energy.toFixed(2)} ৳</span>
+</div>`;
+
+}else{
+
+const p=parseFloat(document.getElementById("peakUnit").value)||0;
+
+const o=parseFloat(document.getElementById("offPeakUnit").value)||0;
+
+const s=parseFloat(document.getElementById("superPeakUnit").value)||0;
+
+totalUnit=p+o+s;
+
+if(type==="LTC1"){
+
+energy=
+(p*tariffInfo[type].peak)+
+(o*tariffInfo[type].offPeak);
+
+}
+
+else if(type==="LTE"){
+
+energy=
+(p*tariffInfo[type].peak)+
+(o*tariffInfo[type].offPeak);
+
+}
+
+else if(type==="LTD3"){
+
+energy=
+(p*tariffInfo[type].peak)+
+(o*tariffInfo[type].offPeak)+
+(s*tariffInfo[type].superOffPeak);
+
+}
+
+breakdown=`
+<div class="detailRow">
+<span>Peak (${p} × ${tariffInfo[type].peak})</span>
+<span>${(p*tariffInfo[type].peak).toFixed(2)} ৳</span>
 </div>
 
-</body>
-<!-- ================= FINAL RESPONSIVE POLISH ================= -->
-<style>
-/* Prevent text breaking weirdly on mobile title */
-h1{
-  word-break:keep-all;
-  line-height:1.2;
+<div class="detailRow">
+<span>Off-Peak (${o} × ${tariffInfo[type].offPeak})</span>
+<span>${(o*tariffInfo[type].offPeak).toFixed(2)} ৳</span>
+</div>`;
+
+if(type==="LTD3"){
+
+breakdown+=`
+<div class="detailRow">
+<span>Super Off-Peak (${s} × ${tariffInfo[type].superOffPeak})</span>
+<span>${(s*tariffInfo[type].superOffPeak).toFixed(2)} ৳</span>
+</div>`;
+
 }
 
-/* Improve button mobile behavior */
-@media(max-width:480px){
-  .btn-row{
-    flex-direction:row;
-  }
-  button{
-    font-size:14px;
-  }
 }
 
-/* Prevent overflow anywhere */
-.card{
-  overflow:hidden;
 }
-</style>
 
-<script>
-// Extra safety: prevent negative or invalid inputs
-document.getElementById("unit").addEventListener("input", function(){
-  if(this.value < 0) this.value = 0;
-});
+const demandRate=(type==="LTA")?42:tariffInfo[type].demand;
 
-document.getElementById("load").addEventListener("input", function(){
-  if(this.value < 0) this.value = 0;
-});
+const demand=load*demandRate;
+
+breakdown+=`
+<div class="detailRow">
+<span>Demand Charge (${load} × ${demandRate})</span>
+<span>${demand.toFixed(2)} ৳</span>
+</div>`;
+
+const principal=energy+demand;
+
+const vat=principal*0.05;
+
+const total=principal+vat;
+
+document.getElementById("resultCard").style.display="block";
+
+document.getElementById("printBox").style.display="block";
+
+document.getElementById("breakdown").innerHTML=
+"<h3>বিস্তারিত হিসাব</h3>"+breakdown;
+
+
+
+document.getElementById("energy").innerHTML=energy.toFixed(2)+" ৳";
+
+document.getElementById("demand").innerHTML=demand.toFixed(2)+" ৳";
+
+document.getElementById("vat").innerHTML=vat.toFixed(2)+" ৳";
+
+document.getElementById("total").innerHTML=total.toFixed(2)+" ৳";
+
+}
+// ================= RESET =================
+
+function resetAll(){
+
+document.getElementById("unit").value="";
+
+document.getElementById("load").value="";
+
+document.getElementById("loadPeak").value="";
+
+document.getElementById("peakUnit").value="";
+
+document.getElementById("offPeakUnit").value="";
+
+document.getElementById("superPeakUnit").value="";
+
+document.getElementById("resultCard").style.display="none";
+
+document.getElementById("printBox").style.display="none";
+
+document.getElementById("peakFields").style.display="none";
+
+document.getElementById("switchBox").style.display="none";
+
+document.getElementById("peakSwitch").checked=false;
+
+document.getElementById("unitBox").style.display="block";
+
+document.getElementById("loadBox").style.display="block";
+
+document.getElementById("loadBoxPeak").style.display="none";
+
+document.getElementById("superPeakDiv").style.display="none";
+
+document.getElementById("tariff").value="LTA";
+
+}
+
 </script>
 
 </body>
-</html>
-
-
 </html>
