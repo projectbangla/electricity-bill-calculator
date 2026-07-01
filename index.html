@@ -510,7 +510,7 @@ onclick="resetAll()">
         </div>
 
         <div class="detailRow">
-            <span>ভ্যাট (5%)</span>
+            <span id="vatLabel">ভ্যাট (5%)</span>
             <span id="vat">0.00 ৳</span>
         </div>
 
@@ -1076,6 +1076,13 @@ document.getElementById("breakdown").innerHTML=
 document.getElementById("energy").innerHTML=energy.toFixed(2)+" ৳";
 
 document.getElementById("demand").innerHTML=demand.toFixed(2)+" ৳";
+if(type==="LTB"){
+    document.getElementById("vatLabel").innerHTML=
+    'ভ্যাট (5%) <small style="font-size:11px;color:#666;">(LT-B ট্যারিফে ভ্যাট প্রযোজ্য নয়)</small>';
+}
+else{
+    document.getElementById("vatLabel").innerHTML="ভ্যাট (5%)";
+}
 
 document.getElementById("vat").innerHTML=vat.toFixed(2)+" ৳";
 
@@ -1117,6 +1124,7 @@ document.getElementById("loadBoxPeak").style.display="none";
 document.getElementById("superPeakDiv").style.display="none";
 
 document.getElementById("tariff").value="LTA";
+document.getElementById("vatLabel").innerHTML="ভ্যাট (5%)";
 
 }
 
