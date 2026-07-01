@@ -1062,7 +1062,7 @@ const principal=energy+demand;
 
 const vat=(type==="LTB") ? 0: principal*0.05;
 
-const total=Math.round(principal+vat);
+const total=Math.ceil(principal+vat);
 
 document.getElementById("resultCard").style.display="block";
 
